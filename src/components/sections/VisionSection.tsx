@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Quote } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,115 +15,130 @@ export default function VisionSection() {
         if (!section) return;
 
         const ctx = gsap.context(() => {
-            gsap.from('.vision-content > *', {
-                y: 50,
-                opacity: 0,
-                stagger: 0.15,
-                duration: 0.8,
-                scrollTrigger: { trigger: '.vision-content', start: 'top 80%' },
+            // reveal lines
+            gsap.utils.toArray('.vision-line').forEach((line: any) => {
+                gsap.from(line, {
+                    y: 100,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: 'power4.out',
+                    scrollTrigger: {
+                        trigger: line,
+                        start: 'top 90%',
+                    },
+                });
             });
 
-            gsap.from('.pillar-item', {
-                y: 40,
-                opacity: 0,
-                stagger: 0.1,
-                duration: 0.6,
-                scrollTrigger: { trigger: '.pillars-grid', start: 'top 85%' },
+            gsap.to('.vision-bg-orb', {
+                y: '30%',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.5,
+                },
             });
         }, section);
 
         return () => ctx.revert();
     }, []);
 
-    const pillars = [
-        { ar: 'الثقة', en: 'Trust', color: '#B56CFF' },
-        { ar: 'الأمان', en: 'Security', color: '#4DFFF3' },
-        { ar: 'الابتكار', en: 'Innovation', color: '#C77DFF' },
-    ];
-
     return (
         <section
             ref={sectionRef}
             style={{
-                background: '#0A0C14',
-                padding: '100px 24px',
+                background: '#050505',
+                padding: '160px 24px',
                 position: 'relative',
                 overflow: 'hidden',
+                minHeight: '80vh',
+                display: 'flex',
+                alignItems: 'center',
+                direction: 'rtl',
             }}
         >
-            {/* Background Glow */}
-            <div style={{
+            {/* Abstract Background */}
+            <div className="vision-bg-orb" style={{
                 position: 'absolute',
-                width: 500,
-                height: 500,
-                top: '10%',
-                left: '-10%',
-                background: '#B56CFF',
+                top: '-10%',
+                left: '-5%',
+                width: 800,
+                height: 800,
+                background: 'radial-gradient(circle, rgba(181, 108, 255, 0.03) 0%, transparent 70%)',
                 borderRadius: '50%',
-                filter: 'blur(150px)',
-                opacity: 0.1,
+                filter: 'blur(80px)',
+                zIndex: 0,
             }} />
 
-            <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-                {/* Header */}
-                <div className="vision-content" style={{ textAlign: 'center', marginBottom: 60 }}>
-                    <p style={{
-                        fontSize: 12,
-                        fontWeight: 600,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        color: 'rgba(237, 235, 255, 0.5)',
-                        marginBottom: 16,
-                    }}>
-                        الفلسفة
-                    </p>
-                    <h2 style={{
-                        fontSize: 'clamp(32px, 5vw, 48px)',
-                        fontWeight: 800,
-                        background: 'linear-gradient(135deg, #B56CFF, #4DFFF3)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        marginBottom: 24,
-                    }}>
-                        رؤية منصة بذرة
-                    </h2>
-                    <div style={{ width: 60, height: 2, background: 'linear-gradient(90deg, #B56CFF, #4DFFF3)', margin: '0 auto 40px' }} />
+            <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', position: 'relative', zIndex: 10 }}>
 
-                    <p style={{
-                        fontSize: 22,
-                        fontWeight: 500,
-                        lineHeight: 1.7,
-                        marginBottom: 20,
-                        color: '#EDEBFF',
-                    }}>
-                        <span style={{ background: 'linear-gradient(135deg, #B56CFF, #4DFFF3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>بذرة</span> ليست منصة تقليدية — إنها نظام بيئي ذكي
-                    </p>
-                    <p style={{
-                        fontSize: 16,
-                        color: 'rgba(237, 235, 255, 0.6)',
-                        maxWidth: 600,
-                        margin: '0 auto',
-                        lineHeight: 1.8,
-                    }}>
-                        نبني على أسس الثقة المطلقة والأمان الفائق وتقنيات الذكاء الاصطناعي المتقدمة
-                    </p>
-                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 60, alignItems: 'flex-start' }}>
 
-                {/* Pillars */}
-                <div className="pillars-grid" style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 60,
-                    flexWrap: 'wrap',
-                }}>
-                    {pillars.map((p) => (
-                        <div key={p.ar} className="pillar-item" style={{ textAlign: 'center' }}>
-                            <div style={{ width: 40, height: 2, background: p.color, margin: '0 auto 16px' }} />
-                            <h3 style={{ fontSize: 24, fontWeight: 700, color: p.color, marginBottom: 6 }}>{p.ar}</h3>
-                            <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', color: 'rgba(237, 235, 255, 0.4)', textTransform: 'uppercase' }}>{p.en}</p>
+                    {/* Left: Huge Typographic Statement */}
+                    <div style={{ maxWidth: 700 }}>
+                        <p className="vision-line" style={{
+                            fontSize: 11,
+                            fontWeight: 700,
+                            letterSpacing: '0.2em',
+                            color: '#666',
+                            marginBottom: 32,
+                            display: 'block'
+                        }}>
+                            01 — الرؤية والفلسفة
+                        </p>
+
+                        <h2 className="vision-line" style={{
+                            fontSize: 'clamp(48px, 6vw, 84px)',
+                            fontWeight: 300,
+                            lineHeight: 1,
+                            letterSpacing: '-0.03em',
+                            color: '#fff',
+                            marginBottom: 40,
+                        }}>
+                            بناء نظام بيئي<br />
+                            <span style={{ color: '#333' }}>يكسر القيود.</span>
+                        </h2>
+
+                        <div className="vision-line" style={{ paddingRight: 24, borderRight: '1px solid #333' }}>
+                            <p style={{
+                                fontSize: 24,
+                                color: '#AAA',
+                                lineHeight: 1.5,
+                                fontWeight: 300,
+                                marginBottom: 24
+                            }}>
+                                "بذرة ليست مجرد منصة، بل هي البنية التحتية الجديدة للاقتصاد الرقمي في المنطقة."
+                            </p>
                         </div>
-                    ))}
+                    </div>
+
+                    {/* Right: Pillars List */}
+                    <div style={{ paddingTop: 40 }}>
+                        {[
+                            { num: '01', title: 'الثقة المطلقة', desc: 'نظام لا مركزي يضمن الشفافية' },
+                            { num: '02', title: 'الأمان الفائق', desc: 'حماية سيبرانية بمعايير عالمية' },
+                            { num: '03', title: 'الابتكار الحر', desc: 'بيئة خصبة لنمو الأفكار الجريئة' }
+                        ].map((item, i) => (
+                            <div key={i} className="vision-line" style={{
+                                marginBottom: 40,
+                                borderTop: '1px solid #1A1A1A',
+                                paddingTop: 24,
+                                display: 'flex',
+                                gap: 24,
+                                opacity: 0.7,
+                                transition: 'opacity 0.3s',
+                            }}>
+                                <span style={{ fontSize: 12, fontWeight: 700, color: '#444' }}>{item.num}</span>
+                                <div>
+                                    <h3 style={{ fontSize: 18, color: '#fff', marginBottom: 8, fontWeight: 500 }}>{item.title}</h3>
+                                    <p style={{ fontSize: 14, color: '#666' }}>{item.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
                 </div>
+
             </div>
         </section>
     );

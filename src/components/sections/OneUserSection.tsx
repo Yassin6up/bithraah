@@ -3,135 +3,178 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Lightbulb, Heart, TrendingUp, Megaphone, User, Check } from 'lucide-react';
+import { Lightbulb, Heart, TrendingUp, Megaphone, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const roles = [
-    { title: 'مفكر', sub: 'THINKER', desc: 'صاحب الفكرة والرؤية الابتكارية الذي يضع الأساس ويقود المشروع نحو النجاح', Icon: Lightbulb, color: '#B56CFF' },
-    { title: 'داعم', sub: 'SUPPORTER', desc: 'الشريك الاستراتيجي الذي يقدم الدعم والمساندة والخبرة في رحلة النمو', Icon: Heart, color: '#4DFFF3' },
-    { title: 'مستثمر', sub: 'INVESTOR', desc: 'الممول الذي يؤمن بالإمكانات ويساهم في تحقيق النمو المستدام', Icon: TrendingUp, color: '#C77DFF' },
-    { title: 'مسوق', sub: 'MARKETER', desc: 'الاستراتيجي الذي ينشر الرسالة ويوسع نطاق التأثير والوصول', Icon: Megaphone, color: '#5CE1E6' },
-];
-
-const benefits = [
-    'محفظة رقمية موحدة لجميع أدوارك',
-    'تبديل الأدوار بسلاسة دون إنشاء حسابات جديدة',
-    'إدارة مركزية لجميع مشاريعك واستثماراتك',
-    'خصوصية وأمان على مستوى كل دور',
+    {
+        title: 'المفكر',
+        en: 'THE THINKER',
+        desc: 'الرؤية والابتكار',
+        details: 'صياغة المستقبل وبناء الاستراتيجيات',
+        Icon: Lightbulb,
+    },
+    {
+        title: 'الداعم',
+        en: 'THE SUPPORTER',
+        desc: 'القوة والتمكين',
+        details: 'شريك النجاح والدعم المستمر',
+        Icon: Heart,
+    },
+    {
+        title: 'المستثمر',
+        en: 'THE INVESTOR',
+        desc: 'النمو والأثر',
+        details: 'صناعة الفرص وتعظيم العوائد',
+        Icon: TrendingUp,
+    },
+    {
+        title: 'المسوق',
+        en: 'THE MARKETER',
+        desc: 'الصوت والصدى',
+        details: 'توسيع الآفاق والوصول للعالم',
+        Icon: Megaphone,
+    },
 ];
 
 export default function OneUserSection() {
     const sectionRef = useRef<HTMLElement>(null);
 
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const ctx = gsap.context(() => {
+            gsap.from('.role-card-pro', {
+                y: 60,
+                opacity: 0,
+                stagger: 0.15,
+                duration: 1,
+                ease: 'power4.out',
+                scrollTrigger: { trigger: '.cards-grid-pro', start: 'top 85%' },
+            });
+        }, section);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
         <section
             ref={sectionRef}
             style={{
-                background: '#080A10',
-                padding: '100px 24px',
+                background: '#050505',
+                padding: '140px 24px',
                 position: 'relative',
                 overflow: 'hidden',
+                direction: 'rtl',
             }}
         >
-            {/* Background */}
-            <div style={{ position: 'absolute', width: 600, height: 600, top: '20%', right: '-15%', background: '#B56CFF', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.08 }} />
-            <div style={{ position: 'absolute', width: 400, height: 400, bottom: '10%', left: '5%', background: '#4DFFF3', borderRadius: '50%', filter: 'blur(120px)', opacity: 0.06 }} />
+            <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
-            <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative', zIndex: 10 }}>
-                {/* Header */}
-                <div className="ou-header" style={{ textAlign: 'center', marginBottom: 50 }}>
-                    <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(237, 235, 255, 0.5)', marginBottom: 14 }}>المبدأ الأساسي</p>
-                    <h2 style={{ fontSize: 'clamp(28px, 5vw, 42px)', fontWeight: 800, background: 'linear-gradient(135deg, #B56CFF, #4DFFF3)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 14 }}>
-                        مبدأ المستخدم الواحد
-                    </h2>
-                    <p style={{ fontSize: 16, color: 'rgba(237, 235, 255, 0.6)', maxWidth: 500, margin: '0 auto' }}>
-                        في بذرة، أنت لست بحاجة لحسابات متعددة. هوية واحدة تمنحك جميع الأدوار
-                    </p>
+                {/* Editorial Header */}
+                <div className="ou-header" style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
+                    marginBottom: 80,
+                    flexWrap: 'wrap',
+                    gap: 40,
+                    borderBottom: '1px solid rgba(255,255,255,0.08)',
+                    paddingBottom: 40,
+                }}>
+                    <div>
+                        <span style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: '#666', marginBottom: 16 }}>
+                            02 — المبدأ الأساسي
+                        </span>
+                        <h2 style={{
+                            fontSize: 'clamp(40px, 5vw, 64px)',
+                            fontWeight: 400,
+                            letterSpacing: '-0.02em',
+                            color: '#fff',
+                            lineHeight: 1,
+                            maxWidth: 600,
+                        }}>
+                            هوية واحدة.<br />
+                            <span style={{ color: '#444' }}>أدوار متعددة.</span>
+                        </h2>
+                    </div>
+
+                    <div style={{ maxWidth: 400 }}>
+                        <p style={{ fontSize: 15, color: '#888', lineHeight: 1.8 }}>
+                            نؤمن بأن المبتكر لا يجب أن يقيد. نظامنا الموحد يمنحك حرية التنقل بين أدوارك المختلفة بسلاسة مطلقة.
+                        </p>
+                    </div>
                 </div>
 
-                {/* Concept Visual */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginBottom: 50, flexWrap: 'wrap' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 28px', background: 'rgba(181, 108, 255, 0.1)', border: '1px solid rgba(181, 108, 255, 0.25)', borderRadius: 12 }}>
-                        <User size={22} style={{ color: '#B56CFF' }} />
-                        <span style={{ fontSize: 16, fontWeight: 600, color: '#EDEBFF' }}>حساب واحد</span>
-                    </div>
-                    <span style={{ fontSize: 28, color: 'rgba(237, 235, 255, 0.3)' }}>→</span>
-                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
-                        {roles.map((r) => (
-                            <span key={r.title} style={{ padding: '8px 18px', background: `${r.color}15`, border: `1px solid ${r.color}35`, borderRadius: 8, color: r.color, fontWeight: 600, fontSize: 13 }}>{r.title}</span>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Cards */}
-                <div className="cards-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 16, marginBottom: 50 }}>
-                    {roles.map((role) => (
+                {/* Dynamic Cards Layout */}
+                <div className="cards-grid-pro" style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                    gap: 24,
+                }}>
+                    {roles.map((role, i) => (
                         <div
-                            key={role.title}
-                            className="role-card"
+                            key={i}
+                            className="role-card-pro"
                             style={{
-                                background: 'rgba(255, 255, 255, 0.02)',
-                                border: '1px solid rgba(255, 255, 255, 0.06)',
-                                borderRadius: 16,
-                                padding: '28px 20px',
-                                textAlign: 'center',
-                                transition: 'all 0.3s ease',
+                                height: 300,
+                                background: '#0A0A0A',
+                                border: '1px solid #1A1A1A',
+                                padding: 32,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
+                                transition: 'all 0.4s ease',
+                                cursor: 'default',
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = '#333';
+                                e.currentTarget.style.transform = 'translateY(-5px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = '#1A1A1A';
+                                e.currentTarget.style.transform = 'translateY(0)';
                             }}
                         >
-                            <div style={{
-                                width: 56,
-                                height: 56,
-                                margin: '0 auto 20px',
-                                borderRadius: 14,
-                                background: `${role.color}12`,
-                                border: `1px solid ${role.color}30`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}>
-                                <role.Icon size={26} style={{ color: role.color }} strokeWidth={1.5} />
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                <span style={{ fontSize: 12, fontWeight: 600, color: '#333' }}>{(i + 1).toString().padStart(2, '0')}</span>
+                                <role.Icon size={24} style={{ color: '#fff' }} strokeWidth={1} />
                             </div>
-                            <h3 style={{ fontSize: 20, fontWeight: 700, color: role.color, marginBottom: 4 }}>{role.title}</h3>
-                            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: 'rgba(237, 235, 255, 0.4)', marginBottom: 14 }}>{role.sub}</p>
-                            <p style={{ fontSize: 13, color: 'rgba(237, 235, 255, 0.6)', lineHeight: 1.7 }}>{role.desc}</p>
+
+                            <div>
+                                <h3 style={{ fontSize: 24, fontWeight: 500, color: '#fff', marginBottom: 8 }}>{role.title}</h3>
+                                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', marginBottom: 24 }}>{role.en}</p>
+
+                                <div style={{ width: '100%', height: 1, background: '#1A1A1A', marginBottom: 24 }} />
+
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <p style={{ fontSize: 13, color: '#888' }}>{role.desc}</p>
+                                    <ArrowRight size={16} color="#444" style={{ transform: 'rotate(180deg)' }} />
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Benefits */}
-                <div className="benefits-box" style={{ maxWidth: 550, margin: '0 auto', padding: 28, background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: 16 }}>
-                    <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20, textAlign: 'center', color: '#EDEBFF' }}>مميزات الهوية الموحدة</h3>
-                    <div style={{ display: 'grid', gap: 14 }}>
-                        {benefits.map((b, i) => (
-                            <div key={i} className="benefit-row" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                                <div style={{ width: 26, height: 26, borderRadius: 7, background: 'rgba(77, 255, 243, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                    <Check size={14} style={{ color: '#4DFFF3' }} />
-                                </div>
-                                <p style={{ fontSize: 14, color: 'rgba(237, 235, 255, 0.75)' }}>{b}</p>
-                            </div>
-                        ))}
-                    </div>
+                {/* Bottom subtle text */}
+                <div style={{
+                    marginTop: 60,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    color: '#333',
+                    fontSize: 11,
+                    letterSpacing: '0.1em',
+                    borderTop: '1px solid #111',
+                    paddingTop: 24,
+                    direction: 'ltr',
+                }}>
+                    <span>UNIFIED ECOSYSTEM</span>
+                    <span>BITHRAH PLATFORM © 2026</span>
                 </div>
 
-                {/* Bottom */}
-                <p style={{ textAlign: 'center', marginTop: 40, fontSize: 14, color: 'rgba(237, 235, 255, 0.4)' }}>
-                    <span style={{ color: '#B56CFF' }}>هوية واحدة</span> · <span style={{ color: '#4DFFF3' }}>إمكانيات لا محدودة</span>
-                </p>
             </div>
-
-            <style jsx>{`
-        @media (max-width: 900px) {
-          .cards-container {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .cards-container {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }

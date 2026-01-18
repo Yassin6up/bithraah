@@ -3,75 +3,35 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Brain, Activity, Sparkles } from 'lucide-react';
+import { Cpu, Network, Zap, GitBranch, ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const features = [
-    { title: 'تحليل السلوك', desc: 'فهم أنماط تفاعلك', Icon: Activity, color: '#B56CFF' },
-    { title: 'التعلم المستمر', desc: 'تطور مع احتياجاتك', Icon: Brain, color: '#4DFFF3' },
-    { title: 'توصيات ذكية', desc: 'حلول في الوقت المثالي', Icon: Sparkles, color: '#C77DFF' },
-];
-
 export default function AISection() {
     const sectionRef = useRef<HTMLElement>(null);
-    const bgRef = useRef<HTMLDivElement>(null);
-    const ringRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const section = sectionRef.current;
-        const bg = bgRef.current;
-        const ring = ringRef.current;
         if (!section) return;
 
         const ctx = gsap.context(() => {
-            // Background parallax
-            gsap.to(bg, {
-                y: '-25%',
+            gsap.to('.ai-grid-line', {
+                backgroundPosition: '0% 100%',
                 ease: 'none',
                 scrollTrigger: {
                     trigger: section,
                     start: 'top bottom',
                     end: 'bottom top',
-                    scrub: 1,
+                    scrub: 0.5,
                 },
             });
 
-            // Ring scale on scroll
-            gsap.from(ring, {
-                scale: 0.7,
+            gsap.from('.ai-card', {
+                y: 50,
                 opacity: 0,
-                duration: 1.2,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: ring,
-                    start: 'top 80%',
-                },
-            });
-
-            // Ring rotation on scroll
-            gsap.to(ring, {
-                rotate: 30,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1,
-                },
-            });
-
-            // Features reveal
-            gsap.from('.ai-feature', {
-                y: 40,
-                opacity: 0,
-                stagger: 0.15,
-                duration: 0.7,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: '.ai-features',
-                    start: 'top 85%',
-                },
+                stagger: 0.1,
+                duration: 0.8,
+                scrollTrigger: { trigger: '.ai-grid', start: 'top 80%' },
             });
         }, section);
 
@@ -79,68 +39,110 @@ export default function AISection() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="section" style={{ background: '#080A10' }}>
-            {/* Background */}
-            <div ref={bgRef} className="parallax-bg">
-                <div className="glow-orb" style={{ width: 700, height: 700, top: '40%', left: '50%', transform: 'translate(-50%, -50%)', background: '#B56CFF' }} />
-                <div className="grid-pattern" />
-            </div>
+        <section
+            ref={sectionRef}
+            style={{
+                background: '#050505',
+                padding: '140px 24px',
+                position: 'relative',
+                overflow: 'hidden',
+                color: '#fff',
+                direction: 'rtl',
+            }}
+        >
+            <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-            <div className="container" style={{ textAlign: 'center' }}>
                 {/* Header */}
-                <p className="label" style={{ marginBottom: 16 }}>التقنية</p>
-                <h2 className="h2 gradient" style={{ marginBottom: 16 }}>الذكاء الاصطناعي السلوكي</h2>
-                <p className="body" style={{ maxWidth: 500, margin: '0 auto 64px' }}>
-                    تقنية تفهم احتياجاتك قبل أن تعبر عنها
-                </p>
-
-                {/* Ring Animation */}
-                <div ref={ringRef} className="ring-container" style={{ margin: '0 auto 64px' }}>
-                    <div className="ring ring-1" />
-                    <div className="ring ring-2" />
-                    <div className="ring ring-3" />
-
-                    {/* Center Icon */}
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                        <div style={{
-                            width: 70,
-                            height: 70,
-                            borderRadius: '50%',
-                            background: 'radial-gradient(circle, rgba(77, 255, 243, 0.2) 0%, transparent 70%)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                            <Brain size={36} style={{ color: '#4DFFF3' }} strokeWidth={1.5} />
-                        </div>
+                <div style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 80,
+                    borderBottom: '1px solid #222', paddingBottom: 40, flexWrap: 'wrap', gap: 40
+                }}>
+                    <div>
+                        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: '#666', marginBottom: 16, display: 'block' }}>
+                            04 — الذكاء السلوكي
+                        </span>
+                        <h2 style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontWeight: 400, lineHeight: 1, letterSpacing: '-0.02em', maxWidth: 600 }}>
+                            ذكاء اصطناعي<br />
+                            <span style={{ color: '#4DFFF3' }}>يفهمك.</span>
+                        </h2>
+                    </div>
+                    <div style={{ maxWidth: 400 }}>
+                        <p style={{ fontSize: 16, color: '#888', lineHeight: 1.7 }}>
+                            محرك ذكي يحلل الأنماط السلوكية ليقدم تجربة مخصصة بالكامل، يتطور معك ويتعلم من تفاعلاتك.
+                        </p>
                     </div>
                 </div>
 
-                {/* Features */}
-                <div className="ai-features" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, maxWidth: 800, margin: '0 auto' }}>
-                    {features.map((f) => (
-                        <div key={f.title} className="ai-feature" style={{ textAlign: 'center' }}>
-                            <div className="icon-box" style={{
-                                margin: '0 auto 20px',
-                                background: `${f.color}12`,
-                                borderColor: `${f.color}25`
-                            }}>
-                                <f.Icon size={28} style={{ color: f.color }} strokeWidth={1.5} />
+                {/* Grid Layout */}
+                <div className="ai-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: 1,
+                    background: '#222', // Grid lines color
+                    border: '1px solid #222',
+                }}>
+                    {[
+                        { title: 'التحليل التنبؤي', desc: 'استباق الاحتياجات قبل ظهورها', icon: Network },
+                        { title: 'المعالج العصبي', desc: 'معالجة فورية للبيانات المعقدة', icon: Cpu },
+                        { title: 'التعلم المستمر', desc: 'تطور دائم مع كل تفاعل', icon: GitBranch },
+                        { title: 'الأتمتة الذكية', desc: 'تنفيذ المهام الروتينية تلقائياً', icon: Zap },
+                    ].map((item, i) => (
+                        <div key={i} className="ai-card" style={{
+                            background: '#080808',
+                            padding: 40,
+                            height: 280,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            position: 'relative',
+                            transition: 'background 0.3s',
+                        }}
+                            onMouseEnter={(e) => e.currentTarget.style.background = '#0C0C0C'}
+                            onMouseLeave={(e) => e.currentTarget.style.background = '#080808'}
+                        >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                <item.icon size={32} color="#4DFFF3" strokeWidth={1} />
+                                <ArrowUpRight size={20} color="#333" style={{ transform: 'rotate(180deg)' }} />
                             </div>
-                            <h3 className="h3" style={{ color: f.color, marginBottom: 8, fontSize: 20 }}>{f.title}</h3>
-                            <p className="body" style={{ fontSize: 15 }}>{f.desc}</p>
+
+                            <div>
+                                <h3 style={{ fontSize: 24, marginBottom: 8, fontWeight: 500 }}>{item.title}</h3>
+                                <p style={{ fontSize: 14, color: '#666' }}>{item.desc}</p>
+                            </div>
+
+                            {/* Tech deco */}
+                            <div style={{
+                                position: 'absolute',
+                                bottom: 20,
+                                left: 20,
+                                fontSize: 9,
+                                color: '#333',
+                                fontFamily: 'monospace',
+                                direction: 'ltr'
+                            }}>
+                                NODE_0{i + 1} :: ACTIVE
+                            </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Tagline */}
-                <p className="h3 gradient" style={{ marginTop: 64 }}>ذكاء يتجاوز التوقعات</p>
+                {/* Bottom Tech Bar */}
+                <div style={{
+                    marginTop: 60,
+                    display: 'flex',
+                    gap: 40,
+                    paddingTop: 24,
+                    borderTop: '1px solid #111',
+                    fontSize: 12,
+                    color: '#444',
+                    fontFamily: 'monospace',
+                    direction: 'ltr',
+                }}>
+                    <span>PROCESSING: 450 TFLOPS</span>
+                    <span>ADAPTATION RATE: 98.4%</span>
+                    <span>NEURAL LAYERS: 128</span>
+                </div>
+
             </div>
         </section>
     );

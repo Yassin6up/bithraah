@@ -3,168 +3,202 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Play } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
     const sectionRef = useRef<HTMLElement>(null);
-    const bgRef = useRef<HTMLDivElement>(null);
-    const midRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
-    const particlesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const section = sectionRef.current;
-        const bg = bgRef.current;
-        const mid = midRef.current;
-        const content = contentRef.current;
-        const particles = particlesRef.current;
-
         if (!section) return;
 
         const ctx = gsap.context(() => {
-            // Background parallax - slowest
-            gsap.to(bg, {
-                y: '30%',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1,
-                },
-            });
-
-            // Mid layer parallax
-            gsap.to(mid, {
-                y: '20%',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1,
-                },
-            });
-
-            // Particles parallax
-            gsap.to(particles, {
-                y: '15%',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1,
-                },
-            });
-
-            // Content parallax - fastest fade
-            gsap.to(content, {
-                y: '50%',
+            gsap.from('.hero-word', {
+                y: 100,
                 opacity: 0,
-                ease: 'none',
+                stagger: 0.15,
+                duration: 1.2,
+                ease: 'power4.out',
+                delay: 0.2,
+            });
+
+            gsap.from('.hero-meta', {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                delay: 1,
+            });
+
+            gsap.to('.hero-bg-grad', {
+                y: '20%',
+                opacity: 0.5,
                 scrollTrigger: {
                     trigger: section,
                     start: 'top top',
-                    end: '80% top',
+                    end: 'bottom top',
                     scrub: 1,
                 },
             });
-
-            // Entrance animations
-            gsap.from('.hero-label', { y: 30, opacity: 0, duration: 0.8, delay: 0.2 });
-            gsap.from('.hero-title', { y: 60, opacity: 0, duration: 1, delay: 0.4, ease: 'power3.out' });
-            gsap.from('.hero-subtitle', { y: 40, opacity: 0, duration: 0.8, delay: 0.6 });
-            gsap.from('.hero-desc', { y: 30, opacity: 0, duration: 0.8, delay: 0.8 });
-            gsap.from('.hero-btns', { y: 30, opacity: 0, duration: 0.8, delay: 1 });
         }, section);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={sectionRef} className="section" style={{ background: '#080A10' }}>
-            {/* Background Layer - Gradient & Grid */}
-            <div ref={bgRef} className="parallax-bg">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        background: 'radial-gradient(ellipse at 30% 20%, rgba(181, 108, 255, 0.12) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(77, 255, 243, 0.08) 0%, transparent 50%)'
-                    }}
-                />
-                <div className="grid-pattern" />
-            </div>
+        <section
+            ref={sectionRef}
+            style={{
+                height: '100vh',
+                background: '#050505',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                padding: '0 24px',
+            }}
+        >
+            {/* Ambient Background */}
+            <div className="hero-bg-grad" style={{
+                position: 'absolute',
+                top: '-20%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '120%',
+                height: '120%',
+                background: 'radial-gradient(circle at 50% 30%, rgba(181, 108, 255, 0.08) 0%, transparent 60%)',
+                zIndex: 0,
+                pointerEvents: 'none',
+            }} />
 
-            {/* Mid Layer - Glow Orbs */}
-            <div ref={midRef} className="parallax-mid">
-                <div className="glow-orb" style={{ width: 600, height: 600, top: '-20%', right: '-10%', background: '#B56CFF' }} />
-                <div className="glow-orb" style={{ width: 500, height: 500, bottom: '-15%', left: '-10%', background: '#4DFFF3' }} />
-            </div>
+            <div style={{
+                maxWidth: 1400,
+                width: '100%',
+                margin: '0 auto',
+                position: 'relative',
+                zIndex: 10,
+                display: 'grid',
+                gridTemplateColumns: 'minmax(0, 1.5fr) minmax(0, 1fr)',
+                gap: 60,
+                alignItems: 'end',
+            }}>
+                {/* Main Typography */}
+                <div>
+                    <div style={{ overflow: 'hidden', marginBottom: 20 }}>
+                        <h1 style={{
+                            fontSize: 'clamp(60px, 9vw, 140px)',
+                            fontWeight: 800,
+                            lineHeight: 0.9,
+                            color: '#fff',
+                            letterSpacing: '-0.03em',
+                            margin: 0,
+                            direction: 'rtl',
+                        }}>
+                            <span className="hero-word" style={{ display: 'inline-block' }}>المستقبل</span><br />
+                            <span className="hero-word" style={{ display: 'inline-block', color: '#B56CFF' }}>يبدأ</span><br />
+                            <span className="hero-word" style={{ display: 'inline-block' }}>من هنا.</span>
+                        </h1>
+                    </div>
 
-            {/* Particles Layer */}
-            <div ref={particlesRef} className="particles">
-                {[...Array(40)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="particle"
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            opacity: 0.1 + Math.random() * 0.2,
-                            animationDelay: `${Math.random() * 5}s`,
-                        }}
-                    />
-                ))}
-            </div>
-
-            {/* Content Layer */}
-            <div ref={contentRef} className="container" style={{ textAlign: 'center' }}>
-                {/* Seed Icon - Hidden */}
-                {/* 
-                <div style={{ marginBottom: 48 }}>
-                    ...seed icon code...
+                    <div className="hero-meta" style={{ display: 'flex', gap: 32, alignItems: 'center', marginTop: 40, direction: 'rtl' }}>
+                        <button className="btn-primary-pro" style={{
+                            padding: '16px 32px',
+                            background: '#fff',
+                            color: '#000',
+                            border: 'none',
+                            fontSize: 16,
+                            fontWeight: 700,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 12,
+                            cursor: 'pointer',
+                            transition: 'transform 0.2s',
+                            fontFamily: 'inherit',
+                        }}>
+                            منصة بذرة
+                            <ArrowLeft size={18} style={{ transform: 'rotate(180deg)' }} />
+                        </button>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', color: '#888', fontSize: 14, fontWeight: 500 }}>
+                            <div style={{ width: 40, height: 40, border: '1px solid #333', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Play size={14} fill="#fff" stroke="none" />
+                            </div>
+                            شاهد العرض
+                        </div>
+                    </div>
                 </div>
-                */}
 
-                <p className="hero-label label" style={{ marginBottom: 16 }}>منصة الابتكار الرقمي · 2026</p>
+                {/* Right Metadata */}
+                <div className="hero-meta" style={{
+                    paddingBottom: 20,
+                    borderLeft: '1px solid #222',
+                    paddingLeft: 40,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    height: '100%',
+                    textAlign: 'right',
+                    alignItems: 'flex-end',
+                }}>
+                    <p style={{
+                        fontSize: 20,
+                        lineHeight: 1.6,
+                        color: '#AAA',
+                        marginBottom: 32,
+                        maxWidth: 400,
+                        direction: 'rtl',
+                    }}>
+                        نظام بيئي رقمي متكامل يعيد تعريف مفهوم الابتكار، الأمان، والنمو في الشرق الأوسط.
+                    </p>
 
-                <h1 className="hero-title h1" style={{ marginBottom: 24 }}>
-                    <span className="gradient">انتهى التسجيل المبكر</span>
-                </h1>
-
-                <p className="hero-subtitle h3" style={{ marginBottom: 16, color: 'rgba(237, 235, 255, 0.8)' }}>
-                    موعدنا مع <span style={{ color: '#4DFFF3' }}>بذرة</span> قريبًا
-                </p>
-
-                <p className="hero-desc body" style={{ maxWidth: 500, margin: '0 auto 48px' }}>
-                    منصة رقمية ذكية بهوية واحدة، وأمان فائق، وذكاء اصطناعي سلوكي
-                </p>
-
-                <div className="hero-btns" style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <button className="btn btn-primary">
-                        <Sparkles size={20} />
-                        تابعنا
-                        <ArrowLeft size={20} />
-                    </button>
-                    <button className="btn btn-ghost">
-                        تواصل معنا
-                    </button>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, fontSize: 12, color: '#555', fontFamily: 'monospace', direction: 'ltr', textAlign: 'right' }}>
+                        <div>
+                            <span style={{ display: 'block', color: '#888', marginBottom: 4 }}>الإصدار</span>
+                            2.0.4 (تجريبي)
+                        </div>
+                        <div>
+                            <span style={{ display: 'block', color: '#888', marginBottom: 4 }}>المنطقة</span>
+                            الشرق الأوسط / السعودية
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
-            <div className="scroll-indicator">
-                <div className="scroll-dot" />
+            {/* Bottom Ticker */}
+            <div className="hero-meta" style={{
+                position: 'absolute',
+                bottom: 40,
+                left: 0,
+                width: '100%',
+                borderTop: '1px solid #111',
+                paddingTop: 20,
+                display: 'flex',
+                justifyContent: 'space-between',
+                paddingLeft: 40,
+                paddingRight: 40,
+                color: '#444',
+                fontSize: 10,
+                letterSpacing: '0.1em',
+                flexDirection: 'row-reverse',
+            }}>
+                <span>تصفح لتكتشف المزيد</span>
+                <span>بذرة © 2026</span>
             </div>
 
             <style jsx>{`
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 0.6; }
-          50% { transform: scale(1.1); opacity: 1; }
-        }
-      `}</style>
+                @media (max-width: 1000px) {
+                    div[style*="grid-template-columns"] {
+                        grid-template-columns: 1fr !important;
+                    }
+                    div[style*="border-left"] {
+                        border-left: none !important;
+                        padding-left: 0 !important;
+                        padding-top: 40px;
+                        border-top: 1px solid #222;
+                    }
+                }
+            `}</style>
         </section>
     );
 }
