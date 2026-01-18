@@ -3,45 +3,36 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Lightbulb, Heart, TrendingUp, Megaphone, ArrowRight, CheckCircle2, Layers, Cpu, Shield } from 'lucide-react';
+import { User, FileText, Wallet, Users, Activity, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const roles = [
+const principles = [
     {
-        title: 'المفكر',
-        en: 'THE THINKER',
-        desc: 'الرؤية والابتكار',
-        details: 'صياغة المستقبل وبناء الاستراتيجيات',
-        Icon: Lightbulb,
+        title: 'مستخدم واحد',
+        desc: 'هوية موحدة لكل شخص على المنصة',
+        Icon: User,
     },
     {
-        title: 'الداعم',
-        en: 'THE SUPPORTER',
-        desc: 'القوة والتمكين',
-        details: 'شريك النجاح والدعم المستمر',
-        Icon: Heart,
+        title: 'بروفايل واحد',
+        desc: 'ملف شخصي شامل يعكس كل الأنشطة',
+        Icon: FileText,
     },
     {
-        title: 'المستثمر',
-        en: 'THE INVESTOR',
-        desc: 'النمو والأثر',
-        details: 'صناعة الفرص وتعظيم العوائد',
-        Icon: TrendingUp,
+        title: 'محفظة واحدة',
+        desc: 'نظام مالي موحد لجميع المعاملات',
+        Icon: Wallet,
     },
     {
-        title: 'المسوق',
-        en: 'THE MARKETER',
-        desc: 'الصوت والصدى',
-        details: 'توسيع الآفاق والوصول للعالم',
-        Icon: Megaphone,
+        title: 'أدوار متعددة',
+        desc: 'تتشكل الأدوار تلقائيًا من السلوك الفعلي',
+        Icon: Users,
     },
-];
-
-const features = [
-    { title: 'محفظة موحدة', desc: 'جميع أصولك واستثماراتك في مكان واحد آمن', icon: Layers },
-    { title: 'تنقل فوري', desc: 'انتقل بين أدوارك بضغطة زر دون إعادة تسجيل', icon: Cpu },
-    { title: 'خصوصية ذكية', desc: 'بيانات كل دور مفصولة ومحمية بالكامل', icon: Shield },
+    {
+        title: 'مؤشرات ذكية',
+        desc: 'السوق + المجتمع + AI = إشارات لا قرارات',
+        Icon: Activity,
+    },
 ];
 
 export default function OneUserSection() {
@@ -55,18 +46,10 @@ export default function OneUserSection() {
             gsap.from('.role-card-pro', {
                 y: 60,
                 opacity: 0,
-                stagger: 0.15,
+                stagger: 0.1,
                 duration: 1,
                 ease: 'power4.out',
                 scrollTrigger: { trigger: '.cards-grid-pro', start: 'top 85%' },
-            });
-
-            gsap.from('.feature-row', {
-                x: 50,
-                opacity: 0,
-                stagger: 0.1,
-                duration: 0.8,
-                scrollTrigger: { trigger: '.features-container', start: 'top 80%' },
             });
         }, section);
 
@@ -78,7 +61,7 @@ export default function OneUserSection() {
             ref={sectionRef}
             style={{
                 background: '#050505',
-                padding: '100px 24px',
+                padding: 'clamp(60px, 10vh, 100px) 24px',
                 position: 'relative',
                 overflow: 'hidden',
                 direction: 'rtl',
@@ -87,59 +70,40 @@ export default function OneUserSection() {
         >
             <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 80, marginBottom: 100 }}>
-                    {/* Editorial Header */}
-                    <div>
-                        <span style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: '#666', marginBottom: 16 }}>
-                            02 — المبدأ الأساسي
-                        </span>
-                        <h2 style={{
-                            fontSize: 'clamp(40px, 5vw, 64px)',
-                            fontWeight: 400,
-                            letterSpacing: '-0.02em',
-                            color: '#fff',
-                            lineHeight: 1,
-                            marginBottom: 32,
-                        }}>
-                            هوية واحدة.<br />
-                            <span style={{ color: '#444' }}>أدوار متعددة.</span>
-                        </h2>
-                        <p style={{ fontSize: 16, color: '#888', lineHeight: 1.8, maxWidth: 500 }}>
-                            نؤمن بأن المبتكر لا يجب أن يقيد. نظامنا الموحد يمنحك حرية التنقل بين أدوارك المختلفة بسلاسة مطلقة، مما يتيح لك التركيز على ما تتقنه حقاً.
-                        </p>
-                    </div>
-
-                    {/* Features List (New "Finished" Content) */}
-                    <div className="features-container" style={{ display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
-                        {features.map((f, i) => (
-                            <div key={i} className="feature-row" style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
-                                <div style={{ width: 48, height: 48, background: '#0A0A0A', border: '1px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8 }}>
-                                    <f.icon size={20} color="#fff" />
-                                </div>
-                                <div>
-                                    <h4 style={{ fontSize: 18, color: '#fff', marginBottom: 4, fontWeight: 500 }}>{f.title}</h4>
-                                    <p style={{ fontSize: 14, color: '#666' }}>{f.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                {/* Header */}
+                <div style={{ marginBottom: 80, textAlign: 'center' }}>
+                    <span style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: '#666', marginBottom: 16 }}>
+                        05 — المبدأ الجوهري
+                    </span>
+                    <h2 style={{
+                        fontSize: 'clamp(40px, 5vw, 64px)',
+                        fontWeight: 400,
+                        letterSpacing: '-0.02em',
+                        color: '#fff',
+                        lineHeight: 1,
+                        marginBottom: 32,
+                    }}>
+                        هوية واحدة.<br />
+                        <span style={{ color: '#444' }}>منظومة متكاملة.</span>
+                    </h2>
+                    <span style={{ fontSize: 12, color: '#444', fontFamily: 'monospace' }}>بذرة نسخه ٢٠٠٠٠</span>
                 </div>
 
-                {/* Dynamic Cards Layout */}
+                {/* Core Principles Grid */}
                 <div className="cards-grid-pro" style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
                     gap: 24,
                 }}>
-                    {roles.map((role, i) => (
+                    {principles.map((p, i) => (
                         <div
                             key={i}
                             className="role-card-pro"
                             style={{
-                                height: 320,
+                                height: 240,
                                 background: '#080808',
                                 border: '1px solid #1A1A1A',
-                                padding: 32,
+                                padding: 24,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'space-between',
@@ -160,53 +124,28 @@ export default function OneUserSection() {
                         >
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <span style={{ fontSize: 12, fontWeight: 600, color: '#333' }}>{(i + 1).toString().padStart(2, '0')}</span>
-                                <role.Icon size={24} style={{ color: '#fff' }} strokeWidth={1} />
+                                <p.Icon size={24} style={{ color: '#fff' }} strokeWidth={1} />
                             </div>
 
                             <div>
-                                <h3 style={{ fontSize: 24, fontWeight: 500, color: '#fff', marginBottom: 8 }}>{role.title}</h3>
-                                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#555', textTransform: 'uppercase', marginBottom: 24 }}>{role.en}</p>
-
-                                <div style={{ width: '100%', height: 1, background: '#1A1A1A', marginBottom: 24 }} />
-
-                                <p style={{ fontSize: 13, color: '#888', lineHeight: 1.6 }}>{role.details}</p>
-
-                                <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
-                                    <ArrowRight size={16} color="#444" style={{ transform: 'rotate(180deg)' }} />
-                                </div>
+                                <h3 style={{ fontSize: 20, fontWeight: 500, color: '#fff', marginBottom: 8 }}>{p.title}</h3>
+                                <p style={{ fontSize: 13, color: '#666', lineHeight: 1.5 }}>{p.desc}</p>
+                                <span style={{ fontSize: 10, color: '#444', fontFamily: 'monospace', display: 'block', marginTop: 12 }}>بذرة نسخه ٢٠٠٠٠</span>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Bottom System Visualization */}
+                {/* Footer Quote */}
                 <div style={{
-                    marginTop: 40,
+                    marginTop: 60,
                     borderTop: '1px solid #111',
-                    paddingTop: 24,
+                    paddingTop: 40,
+                    textAlign: 'center',
                 }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, paddingBottom: 24, borderBottom: '1px solid #111' }}>
-                        <div>
-                            <span style={{ fontSize: 10, color: '#444', display: 'block', marginBottom: 8, letterSpacing: '0.1em' }}>ACTIVE SESSION</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                <div style={{ width: 8, height: 8, background: '#4DFFF3', borderRadius: '50%', boxShadow: '0 0 10px #4DFFF3' }}></div>
-                                <span style={{ color: '#fff', fontSize: 14 }}>ONLINE</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span style={{ fontSize: 10, color: '#444', display: 'block', marginBottom: 8, letterSpacing: '0.1em' }}>ENCRYPTION</span>
-                            <span style={{ color: '#fff', fontSize: 14 }}>AES-256-GCM</span>
-                        </div>
-                        <div>
-                            <span style={{ fontSize: 10, color: '#444', display: 'block', marginBottom: 8, letterSpacing: '0.1em' }}>SYSTEM STATUS</span>
-                            <span style={{ color: '#fff', fontSize: 14 }}>OPTIMAL</span>
-                        </div>
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16, fontSize: 11, color: '#333' }}>
-                        <span dir="ltr">ID: 8493-XJ-01</span>
-                        <span dir="ltr">BITHRAH UNIFIED IDENTITY SYNC</span>
-                    </div>
+                    <p style={{ fontSize: 18, color: '#fff', fontWeight: 300, maxWidth: 800, margin: '0 auto', lineHeight: 1.6 }}>
+                        "لا يوجد تصنيف مسبق لمستخدم كمستثمر أو صاحب مشروع. الدور يتكون تلقائيًا من تصرفاته داخل المنصة."
+                    </p>
                 </div>
 
             </div>

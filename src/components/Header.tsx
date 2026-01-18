@@ -64,10 +64,9 @@ export default function Header() {
 
                     {/* Desktop Navigation */}
                     <nav style={{
-                        display: 'flex',
                         alignItems: 'center',
                         gap: 32,
-                    }} className="desktop-nav">
+                    }} className="hidden md:flex">
                         {navLinks.map((link) => (
                             <a
                                 key={link.label}
@@ -88,7 +87,7 @@ export default function Header() {
                     </nav>
 
                     {/* Auth Buttons */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="desktop-nav">
+                    <div style={{ alignItems: 'center', gap: 12 }} className="hidden md:flex">
                         <button
                             style={{
                                 display: 'flex',
@@ -148,10 +147,9 @@ export default function Header() {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="mobile-menu-btn"
+                        className="md:hidden"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         style={{
-                            display: 'none',
                             background: 'none',
                             border: 'none',
                             color: 'var(--light)',
@@ -212,17 +210,6 @@ export default function Header() {
                     </button>
                 </div>
             </div>
-
-            <style jsx>{`
-        @media (max-width: 900px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-menu-btn {
-            display: block !important;
-          }
-        }
-      `}</style>
         </>
     );
 }

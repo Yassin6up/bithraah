@@ -3,9 +3,18 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Cpu, Network, Zap, GitBranch, ArrowUpRight } from 'lucide-react';
+import { UserPlus, Heart, Handshake, Briefcase, Share2, Users, ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const activities = [
+    { title: 'نشر الأفكار', desc: 'إطلاق حملات وعرض مشاريع جديدة', icon: UserPlus },
+    { title: 'دعم الحملات', desc: 'تقديم الدعم مقابل مكافآت ومنتجات', icon: Heart },
+    { title: 'التفاوض الاستثماري', desc: 'فتح باب المفاوضات الجادة', icon: Handshake },
+    { title: 'تقديم الخدمات', desc: 'التفاوض على تقديم خدمات متخصصة', icon: Briefcase },
+    { title: 'التسويق', desc: 'الترويج عبر روابط الإحالة', icon: Share2 },
+    { title: 'المشاركة المجتمعية', desc: 'التفاعل في المجتمعات المتخصصة', icon: Users },
+];
 
 export default function AISection() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -15,17 +24,6 @@ export default function AISection() {
         if (!section) return;
 
         const ctx = gsap.context(() => {
-            gsap.to('.ai-grid-line', {
-                backgroundPosition: '0% 100%',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 0.5,
-                },
-            });
-
             gsap.from('.ai-card', {
                 y: 50,
                 opacity: 0,
@@ -43,7 +41,7 @@ export default function AISection() {
             ref={sectionRef}
             style={{
                 background: '#050505',
-                padding: '140px 24px',
+                padding: 'clamp(80px, 10vh, 140px) 24px',
                 position: 'relative',
                 overflow: 'hidden',
                 color: '#fff',
@@ -59,17 +57,18 @@ export default function AISection() {
                 }}>
                     <div>
                         <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: '#666', marginBottom: 16, display: 'block' }}>
-                            04 — الذكاء السلوكي
+                            06 — نموذج المستخدم الديناميكي
                         </span>
                         <h2 style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontWeight: 400, lineHeight: 1, letterSpacing: '-0.02em', maxWidth: 600 }}>
-                            ذكاء اصطناعي<br />
-                            <span style={{ color: '#4DFFF3' }}>يفهمك.</span>
+                            نظام يفهمك<br />
+                            <span style={{ color: '#4DFFF3' }}>من سلوكك.</span>
                         </h2>
                     </div>
-                    <div style={{ maxWidth: 400 }}>
+                    <div style={{ maxWidth: 500 }}>
                         <p style={{ fontSize: 16, color: '#888', lineHeight: 1.7 }}>
-                            محرك ذكي يحلل الأنماط السلوكية ليقدم تجربة مخصصة بالكامل، يتطور معك ويتعلم من تفاعلاتك.
+                            في بذرة لا توجد حسابات مصنفة مسبقًا. يوجد مستخدم واحد مرن يستطيع في الوقت نفسه القيام بأدوار متعددة حسب احتياجاته واهتماماته. النظام يفهم المستخدم من سلوكه الفعلي، لا من وصفه لنفسه.
                         </p>
+                        <span style={{ fontSize: 12, color: '#444', fontFamily: 'monospace', display: 'block', marginTop: 12 }}>بذرة نسخه ٢٠٠٠٠</span>
                     </div>
                 </div>
 
@@ -81,16 +80,11 @@ export default function AISection() {
                     background: '#222', // Grid lines color
                     border: '1px solid #222',
                 }}>
-                    {[
-                        { title: 'التحليل التنبؤي', desc: 'استباق الاحتياجات قبل ظهورها', icon: Network },
-                        { title: 'المعالج العصبي', desc: 'معالجة فورية للبيانات المعقدة', icon: Cpu },
-                        { title: 'التعلم المستمر', desc: 'تطور دائم مع كل تفاعل', icon: GitBranch },
-                        { title: 'الأتمتة الذكية', desc: 'تنفيذ المهام الروتينية تلقائياً', icon: Zap },
-                    ].map((item, i) => (
+                    {activities.map((item, i) => (
                         <div key={i} className="ai-card" style={{
                             background: '#080808',
                             padding: 40,
-                            height: 280,
+                            height: 240,
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
@@ -106,11 +100,10 @@ export default function AISection() {
                             </div>
 
                             <div>
-                                <h3 style={{ fontSize: 24, marginBottom: 8, fontWeight: 500 }}>{item.title}</h3>
+                                <h3 style={{ fontSize: 20, marginBottom: 8, fontWeight: 500 }}>{item.title}</h3>
                                 <p style={{ fontSize: 14, color: '#666' }}>{item.desc}</p>
                             </div>
 
-                            {/* Tech deco */}
                             <div style={{
                                 position: 'absolute',
                                 bottom: 20,
@@ -120,27 +113,10 @@ export default function AISection() {
                                 fontFamily: 'monospace',
                                 direction: 'ltr'
                             }}>
-                                NODE_0{i + 1} :: ACTIVE
+                                ROLE_ACT_{i + 1} :: ENABLED
                             </div>
                         </div>
                     ))}
-                </div>
-
-                {/* Bottom Tech Bar */}
-                <div style={{
-                    marginTop: 60,
-                    display: 'flex',
-                    gap: 40,
-                    paddingTop: 24,
-                    borderTop: '1px solid #111',
-                    fontSize: 12,
-                    color: '#444',
-                    fontFamily: 'monospace',
-                    direction: 'ltr',
-                }}>
-                    <span>PROCESSING: 450 TFLOPS</span>
-                    <span>ADAPTATION RATE: 98.4%</span>
-                    <span>NEURAL LAYERS: 128</span>
                 </div>
 
             </div>

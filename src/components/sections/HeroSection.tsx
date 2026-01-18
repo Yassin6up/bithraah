@@ -85,6 +85,7 @@ export default function HeroSection() {
                 alignItems: 'end',
             }}>
                 {/* Main Typography */}
+                {/* Main Typography */}
                 <div>
                     <div style={{ overflow: 'hidden', marginBottom: 20 }}>
                         <h1 style={{
@@ -96,13 +97,20 @@ export default function HeroSection() {
                             margin: 0,
                             direction: 'rtl',
                         }}>
-                            <span className="hero-word" style={{ display: 'inline-block' }}>المستقبل</span><br />
-                            <span className="hero-word" style={{ display: 'inline-block', color: '#B56CFF' }}>يبدأ</span><br />
-                            <span className="hero-word" style={{ display: 'inline-block' }}>من هنا.</span>
+                            <span className="hero-word" style={{ display: 'inline-block' }}>بذرة</span><br />
                         </h1>
+                        <p className="hero-word" style={{
+                            fontSize: 'clamp(20px, 3vw, 32px)',
+                            fontWeight: 400,
+                            color: '#AAA',
+                            marginTop: 16,
+                            direction: 'rtl'
+                        }}>
+                            بيئة ذكية لدعم وتمكين الأفكار والمشاريع
+                        </p>
                     </div>
 
-                    <div className="hero-meta" style={{ display: 'flex', gap: 32, alignItems: 'center', marginTop: 40, direction: 'rtl' }}>
+                    <div className="hero-meta" style={{ display: 'flex', gap: 24, alignItems: 'center', marginTop: 40, direction: 'rtl', flexWrap: 'wrap' }}>
                         <button className="btn-primary-pro" style={{
                             padding: '16px 32px',
                             background: '#fff',
@@ -117,15 +125,33 @@ export default function HeroSection() {
                             transition: 'transform 0.2s',
                             fontFamily: 'inherit',
                         }}>
-                            منصة بذرة
+                            ابدأ الآن
                             <ArrowLeft size={18} style={{ transform: 'rotate(180deg)' }} />
                         </button>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', color: '#888', fontSize: 14, fontWeight: 500 }}>
-                            <div style={{ width: 40, height: 40, border: '1px solid #333', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Play size={14} fill="#fff" stroke="none" />
-                            </div>
-                            شاهد العرض
-                        </div>
+                        <button style={{
+                            padding: '16px 32px',
+                            background: 'transparent',
+                            color: '#fff',
+                            border: '1px solid #333',
+                            fontSize: 16,
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            fontFamily: 'inherit',
+                        }}>
+                            تواصل معنا
+                        </button>
+                        <button style={{
+                            padding: '16px 32px',
+                            background: 'transparent',
+                            color: '#fff',
+                            border: '1px solid #333',
+                            fontSize: 16,
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            fontFamily: 'inherit',
+                        }}>
+                            اطلب عرض المنصة
+                        </button>
                     </div>
                 </div>
 
@@ -141,25 +167,10 @@ export default function HeroSection() {
                     textAlign: 'right',
                     alignItems: 'flex-end',
                 }}>
-                    <p style={{
-                        fontSize: 20,
-                        lineHeight: 1.6,
-                        color: '#AAA',
-                        marginBottom: 32,
-                        maxWidth: 400,
-                        direction: 'rtl',
-                    }}>
-                        نظام بيئي رقمي متكامل يعيد تعريف مفهوم الابتكار، الأمان، والنمو في الشرق الأوسط.
-                    </p>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, fontSize: 12, color: '#555', fontFamily: 'monospace', direction: 'ltr', textAlign: 'right' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 24, fontSize: 12, color: '#555', fontFamily: 'monospace', direction: 'ltr', textAlign: 'right' }}>
                         <div>
                             <span style={{ display: 'block', color: '#888', marginBottom: 4 }}>الإصدار</span>
-                            2.0.4 (تجريبي)
-                        </div>
-                        <div>
-                            <span style={{ display: 'block', color: '#888', marginBottom: 4 }}>المنطقة</span>
-                            الشرق الأوسط / السعودية
+                            بذرة نسخه ٢٠٠٠٠
                         </div>
                     </div>
                 </div>
