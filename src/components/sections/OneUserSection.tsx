@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Lightbulb, Heart, TrendingUp, Megaphone, ArrowRight } from 'lucide-react';
+import { Lightbulb, Heart, TrendingUp, Megaphone, ArrowRight, CheckCircle2, Layers, Cpu, Shield } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,6 +38,12 @@ const roles = [
     },
 ];
 
+const features = [
+    { title: 'محفظة موحدة', desc: 'جميع أصولك واستثماراتك في مكان واحد آمن', icon: Layers },
+    { title: 'تنقل فوري', desc: 'انتقل بين أدوارك بضغطة زر دون إعادة تسجيل', icon: Cpu },
+    { title: 'خصوصية ذكية', desc: 'بيانات كل دور مفصولة ومحمية بالكامل', icon: Shield },
+];
+
 export default function OneUserSection() {
     const sectionRef = useRef<HTMLElement>(null);
 
@@ -54,6 +60,14 @@ export default function OneUserSection() {
                 ease: 'power4.out',
                 scrollTrigger: { trigger: '.cards-grid-pro', start: 'top 85%' },
             });
+
+            gsap.from('.feature-row', {
+                x: 50,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.8,
+                scrollTrigger: { trigger: '.features-container', start: 'top 80%' },
+            });
         }, section);
 
         return () => ctx.revert();
@@ -68,21 +82,13 @@ export default function OneUserSection() {
                 position: 'relative',
                 overflow: 'hidden',
                 direction: 'rtl',
+                borderBottom: '1px solid #111',
             }}
         >
             <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 10 }}>
 
-                {/* Editorial Header */}
-                <div className="ou-header" style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    marginBottom: 80,
-                    flexWrap: 'wrap',
-                    gap: 40,
-                    borderBottom: '1px solid rgba(255,255,255,0.08)',
-                    paddingBottom: 40,
-                }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 80, marginBottom: 100 }}>
+                    {/* Editorial Header */}
                     <div>
                         <span style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: '#666', marginBottom: 16 }}>
                             02 — المبدأ الأساسي
@@ -93,17 +99,29 @@ export default function OneUserSection() {
                             letterSpacing: '-0.02em',
                             color: '#fff',
                             lineHeight: 1,
-                            maxWidth: 600,
+                            marginBottom: 32,
                         }}>
                             هوية واحدة.<br />
                             <span style={{ color: '#444' }}>أدوار متعددة.</span>
                         </h2>
+                        <p style={{ fontSize: 16, color: '#888', lineHeight: 1.8, maxWidth: 500 }}>
+                            نؤمن بأن المبتكر لا يجب أن يقيد. نظامنا الموحد يمنحك حرية التنقل بين أدوارك المختلفة بسلاسة مطلقة، مما يتيح لك التركيز على ما تتقنه حقاً.
+                        </p>
                     </div>
 
-                    <div style={{ maxWidth: 400 }}>
-                        <p style={{ fontSize: 15, color: '#888', lineHeight: 1.8 }}>
-                            نؤمن بأن المبتكر لا يجب أن يقيد. نظامنا الموحد يمنحك حرية التنقل بين أدوارك المختلفة بسلاسة مطلقة.
-                        </p>
+                    {/* Features List (New "Finished" Content) */}
+                    <div className="features-container" style={{ display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
+                        {features.map((f, i) => (
+                            <div key={i} className="feature-row" style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+                                <div style={{ width: 48, height: 48, background: '#0A0A0A', border: '1px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8 }}>
+                                    <f.icon size={20} color="#fff" />
+                                </div>
+                                <div>
+                                    <h4 style={{ fontSize: 18, color: '#fff', marginBottom: 4, fontWeight: 500 }}>{f.title}</h4>
+                                    <p style={{ fontSize: 14, color: '#666' }}>{f.desc}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -118,8 +136,8 @@ export default function OneUserSection() {
                             key={i}
                             className="role-card-pro"
                             style={{
-                                height: 300,
-                                background: '#0A0A0A',
+                                height: 320,
+                                background: '#080808',
                                 border: '1px solid #1A1A1A',
                                 padding: 32,
                                 display: 'flex',
@@ -127,14 +145,17 @@ export default function OneUserSection() {
                                 justifyContent: 'space-between',
                                 transition: 'all 0.4s ease',
                                 cursor: 'default',
+                                position: 'relative',
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.borderColor = '#333';
                                 e.currentTarget.style.transform = 'translateY(-5px)';
+                                e.currentTarget.style.background = '#0C0C0C';
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.borderColor = '#1A1A1A';
                                 e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.background = '#080808';
                             }}
                         >
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -148,8 +169,9 @@ export default function OneUserSection() {
 
                                 <div style={{ width: '100%', height: 1, background: '#1A1A1A', marginBottom: 24 }} />
 
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <p style={{ fontSize: 13, color: '#888' }}>{role.desc}</p>
+                                <p style={{ fontSize: 13, color: '#888', lineHeight: 1.6 }}>{role.details}</p>
+
+                                <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
                                     <ArrowRight size={16} color="#444" style={{ transform: 'rotate(180deg)' }} />
                                 </div>
                             </div>
@@ -157,7 +179,7 @@ export default function OneUserSection() {
                     ))}
                 </div>
 
-                {/* Bottom subtle text */}
+                {/* Bottom System Bar */}
                 <div style={{
                     marginTop: 60,
                     display: 'flex',
@@ -170,7 +192,7 @@ export default function OneUserSection() {
                     paddingTop: 24,
                     direction: 'ltr',
                 }}>
-                    <span>UNIFIED ECOSYSTEM</span>
+                    <span>UNIFIED IDENTITY SYSTEM</span>
                     <span>BITHRAH PLATFORM © 2026</span>
                 </div>
 
