@@ -78,7 +78,7 @@ export default function OneUserSection() {
             ref={sectionRef}
             style={{
                 background: '#050505',
-                padding: '140px 24px',
+                padding: '100px 24px',
                 position: 'relative',
                 overflow: 'hidden',
                 direction: 'rtl',
@@ -179,21 +179,34 @@ export default function OneUserSection() {
                     ))}
                 </div>
 
-                {/* Bottom System Bar */}
+                {/* Bottom System Visualization */}
                 <div style={{
-                    marginTop: 60,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    color: '#333',
-                    fontSize: 11,
-                    letterSpacing: '0.1em',
+                    marginTop: 40,
                     borderTop: '1px solid #111',
                     paddingTop: 24,
-                    direction: 'ltr',
                 }}>
-                    <span>UNIFIED IDENTITY SYSTEM</span>
-                    <span>BITHRAH PLATFORM © 2026</span>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, paddingBottom: 24, borderBottom: '1px solid #111' }}>
+                        <div>
+                            <span style={{ fontSize: 10, color: '#444', display: 'block', marginBottom: 8, letterSpacing: '0.1em' }}>ACTIVE SESSION</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                <div style={{ width: 8, height: 8, background: '#4DFFF3', borderRadius: '50%', boxShadow: '0 0 10px #4DFFF3' }}></div>
+                                <span style={{ color: '#fff', fontSize: 14 }}>ONLINE</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span style={{ fontSize: 10, color: '#444', display: 'block', marginBottom: 8, letterSpacing: '0.1em' }}>ENCRYPTION</span>
+                            <span style={{ color: '#fff', fontSize: 14 }}>AES-256-GCM</span>
+                        </div>
+                        <div>
+                            <span style={{ fontSize: 10, color: '#444', display: 'block', marginBottom: 8, letterSpacing: '0.1em' }}>SYSTEM STATUS</span>
+                            <span style={{ color: '#fff', fontSize: 14 }}>OPTIMAL</span>
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16, fontSize: 11, color: '#333' }}>
+                        <span dir="ltr">ID: 8493-XJ-01</span>
+                        <span dir="ltr">BITHRAH UNIFIED IDENTITY SYNC</span>
+                    </div>
                 </div>
 
             </div>
